@@ -4,5 +4,5 @@
   :license {:name "MIT"
             :url "https://opensource.org/licenses/MIT"}
   :dependencies [[org.clojure/clojure "1.11.1"]]
-  :main word-search.core
-  :repl-options {:init-ns word-search.core})
+  :main caca-palavras.core
+  :repl-options {:init-ns caca-palavras.core})
