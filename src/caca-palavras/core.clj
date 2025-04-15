@@ -12,6 +12,8 @@
 ;;     [\V \R \A \S]]
 
 (defn -main []
-  (println "Bem-vindo ao caça-palavras em Clojure!")
-
-  )
+  (println "🧩 Bem-vindo ao caça-palavras em Clojure!\n")
+  (let [matriz (ler-matriz "cacapalavra.txt")]
+    (println "📄 Matriz carregada:")
+    (doseq [linha matriz]
+      (println linha))))
