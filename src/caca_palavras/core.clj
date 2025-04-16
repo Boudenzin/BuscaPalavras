@@ -11,9 +11,18 @@
 ;;     [\P \A \L \A]
 ;;     [\V \R \A \S]]
 
+(defn ler-palavra []
+  (clojure.string/upper-case (read-line)))
+
 (defn -main []
   (println "🧩 Bem-vindo ao caça-palavras em Clojure!\n")
-  (let [matriz (ler-matriz "cacapalavra.txt")]
-    (println "📄 Matriz carregada:")
-    (doseq [linha matriz]
-      (println linha))))
+  (println "Digite a palavra que deseja encontrar: ") 
+
+  (let [palavra (ler-palavra)]
+    (println "🔍 Buscando a palavra:" palavra)
+
+    
+
+
+    ) 
+  )
