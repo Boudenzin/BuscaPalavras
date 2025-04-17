@@ -20,7 +20,12 @@
 (def matriz (ler-matriz-horizontal "cacapalavra.txt"))
 (def matriz-transposta (transpor-matriz matriz))
 
-(defn busca-horizontal [matriz palavra])
+(defn encontrar-posicoes [matriz palavra]
+  (keep-indexed
+   (fn [i linha]
+     (when (clojure.string/includes? (apply str linha) palavra)
+       i))
+   matriz)) ;; aqui ele tá retornando o índice da linha onde a palavra foi encontrada
 
 (defn -main []
   (println "🧩 Bem-vindo ao caça-palavras em Clojure!\n")
@@ -28,15 +33,29 @@
 
   
   (flush)
-  (let [palavra (clojure.string/upper-case (read-line))]
-    (println "🔍 Buscando a palavra:" palavra))
+   (let [palavra (clojure.string/upper-case (read-line))
+         linhas-encontradas (encontrar-posicoes matriz palavra)
+         colunas-encontradas (encontrar-posicoes matriz-transposta palavra)]
   
-  (println "\n📄 Matriz carregada:")
-  (doseq [linha matriz]
-    (println linha))
+     (println "\n📄 Matriz carregada:")
+     (doseq [linha matriz]
+       (println linha)
+       )
   
-  (println "\n📄 Matriz transposta:")
-  (doseq [linha matriz-transposta]
-    (println linha))
+     ;; Resultado da busca horizontal (linha)
+     (if (seq linhas-encontradas)
+       (doseq [linha linhas-encontradas]
+         (println (str "✅ Palavra encontrada na linha " linha))
+         )
+       (println "❌ Palavra não encontrada nas linhas.")
+       )
   
+     ;; Resultado da busca vertical (coluna)
+     (if (seq colunas-encontradas)
+       (doseq [coluna colunas-encontradas]
+         (println (str "✅ Palavra encontrada na coluna " coluna))
+         )
+       (println "❌ Palavra não encontrada nas colunas.")
+       )
+     )
   )
