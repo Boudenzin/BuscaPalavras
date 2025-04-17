@@ -2,7 +2,7 @@
   (:require [clojure.java.io :as io]))
 
 (defn ler-matriz-horizontal [caminho]
-  (with-open [rdr (io/reader caminho)]
+  (with-open [rdr (io/reader caminho :encoding "UTF-8")]
     (doall
      (map (fn [linha]
             (vec (remove #(Character/isWhitespace %) linha)))
