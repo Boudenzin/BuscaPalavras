@@ -1,6 +1,6 @@
 # 🔍 BuscaPalavras
 
-Um sistema de **caça-palavras** desenvolvido em **Clojure**, capaz de identificar palavras escondidas em uma matriz de letras. A busca ocorre de forma **horizontal**, **vertical** e **diagonal**, para frente e para trás.
+Um sistema de **caça-palavras** desenvolvido em **Clojure**, capaz de identificar palavras escondidas em uma matriz de letras carregada a partir de um arquivo `.txt`. A busca pode ser feita de forma **horizontal**, **vertical** e futuramente **diagonal**, tanto para frente quanto para trás.
 
 ---
 
@@ -10,9 +10,8 @@ Um sistema de **caça-palavras** desenvolvido em **Clojure**, capaz de identific
 - Suporte a direções:
   - Horizontal (→ ←)
   - Vertical (↓ ↑)
-  - Diagonal (↘ ↖ ↙ ↗)
-- Destaque de palavras encontradas
-- Interface de linha de comando
+- Interface via linha de comando
+- Leitura de matriz a partir de arquivo `.txt`
 
 ---
 
@@ -20,60 +19,66 @@ Um sistema de **caça-palavras** desenvolvido em **Clojure**, capaz de identific
 
 ### ✅ Pré-requisitos
 
-- [Clojure CLI](https://clojure.org/guides/getting_started) **ou** [Leiningen](https://leiningen.org)
+- [Clojure CLI](https://clojure.org/guides/getting_started)
 - Git
+- Editor de texto compatível com UTF-8 (VS Code, Neovim, etc.)
 
 ### 📦 Clonando o projeto
 
 ```bash
-git clone https://github.com/seu-usuario/BuscaPalavras.git
+git clone https://github.com/Boudenzin/BuscaPalavras.git
 cd BuscaPalavras
 ```
 
-### ▶️ Executando com Leiningen
+### ▶️ Executando com Clojure CLI
 
 ```bash
-lein run
+clj -M:run
 ```
 
-> O programa irá iniciar no terminal. Você poderá digitar a palavra que deseja procurar e ver o resultado na matriz.
+> O programa será executado no terminal. Você poderá digitar a palavra que deseja buscar e o sistema mostrará se ela foi encontrada, indicando a posição.
 
 ---
 
-## 🗂 Estrutura do Projeto
+## 📂 Estrutura do Projeto
 
 ```
 BuscaPalavras/
-├── project.clj         # Configurações do projeto
-├── README.md           # Este arquivo
+├── cacapalavra.txt            # Matriz do caça-palavras (entrada)
+├── deps.edn                   # Configurações do projeto com Clojure CLI
+├── README.md                  # Este arquivo
 └── src/
-    └── busca_palavras/
-        └── core.clj    # Arquivo principal com a lógica do programa
+    └── caca_palavras/
+        └── core.clj           # Arquivo principal com a lógica do programa
 ```
 
 ---
 
 ## 🛠 Em desenvolvimento
 
-- [ ] Entrada de matriz por arquivo `.txt`
-- [ ] Suporte a múltiplas palavras por vez
-- [ ] Interface gráfica via ClojureScript (futuro)
+- [x] Entrada da matriz via `.txt`
+- [x] Busca horizontal
+- [x] Busca vertical
+- [ ] Busca diagonal
+- [ ] Destaque visual da palavra encontrada na matriz
+- [ ] Mostrar posições da palavra (início e fim)
+- [ ] Interface gráfica via ClojureScript
 - [ ] Testes automatizados com `clojure.test`
 
 ---
 
 ## 📄 Licença
 
-Este projeto está licenciado sob a licença (LICENSE)
+Este projeto está licenciado sob os termos do arquivo [LICENSE](./LICENSE).
 
 ---
 
 ## 🤝 Contribuindo
 
-Contribuições são super bem-vindas! Abra uma *issue* ou envie um *pull request* com suas ideias, melhorias ou correções.
+Contribuições são super bem-vindas! Sinta-se à vontade para abrir uma *issue* com sugestões, relatar bugs ou enviar um *pull request* com melhorias.
 
 ---
 
 ## 👨‍💻 Autores
 
-Desenvolvido  por Romildo Rodrigues, Frederyck Lohan e Miguel Angelo.  
+Desenvolvido por **Romildo Rodrigues**, **Frederyck Lohan** e **Miguel Angelo**.
