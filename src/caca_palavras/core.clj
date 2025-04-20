@@ -25,7 +25,9 @@
    (fn [i linha]
      (when (clojure.string/includes? (apply str linha) palavra)
        i))
-   matriz)) ;; aqui ele tá retornando o índice da linha onde a palavra foi encontrada
+   matriz)) ;; => aqui ele tá retornando o índice da linha onde a palavra foi encontrada
+
+(defn busca-diagonal [matriz palavra]) ;; => implementar ainda
 
 (defn -main []
   (println "🧩 Bem-vindo ao caça-palavras em Clojure!\n")
