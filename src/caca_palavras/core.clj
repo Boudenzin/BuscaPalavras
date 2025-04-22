@@ -4,21 +4,23 @@
   (:import [java.text Normalizer]
            [java.text Normalizer$Form]))
 
+(defn remover-acentos [texto]
+  (-> texto
+      (Normalizer/normalize Normalizer$Form/NFD)
+      (str/replace #"\p{M}" "")))
+
 ;; Definindo a função para ler o arquivo e criar a matriz
 (defn ler-matriz-horizontal [caminho]
   (with-open [rdr (io/reader caminho :encoding "UTF-8")]
     (doall
      (map (fn [linha]
-            (vec (remove #(Character/isWhitespace %) linha)))
+            (vec (remove #(Character/isWhitespace %) (remover-acentos (str/upper-case linha))))) ;; Removendo espaços em branco e convertendo para maiúsculas
           (line-seq rdr)))))
 ;; => [[\C \A \Ç \A]
 ;;     [\P \A \L \A]
 ;;     [\V \R \A \S]]
 
-(defn remover-acentos [texto]
-  (-> texto
-      (Normalizer/normalize Normalizer$Form/NFD)
-      (str/replace #"\p{M}" "")))
+
 
 
 (defn transpor-matriz [matriz]
