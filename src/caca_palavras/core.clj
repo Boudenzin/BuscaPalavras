@@ -1,6 +1,10 @@
 (ns caca-palavras.core
-  (:require [clojure.java.io :as io]))
+  (:require [clojure.java.io :as io]
+            [clojure.string :as str])
+  (:import [java.text Normalizer]
+           [java.text Normalizer$Form]))
 
+;; Definindo a função para ler o arquivo e criar a matriz
 (defn ler-matriz-horizontal [caminho]
   (with-open [rdr (io/reader caminho :encoding "UTF-8")]
     (doall
@@ -10,6 +14,12 @@
 ;; => [[\C \A \Ç \A]
 ;;     [\P \A \L \A]
 ;;     [\V \R \A \S]]
+
+(defn remover-acentos [texto]
+  (-> texto
+      (Normalizer/normalize Normalizer$Form/NFD)
+      (str/replace #"\p{M}" "")))
+
 
 (defn transpor-matriz [matriz]
   (apply map vector matriz))
