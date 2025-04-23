@@ -20,13 +20,9 @@
 
 
 (defn transpor-matriz [matriz]
-  (apply map vector matriz))
-
-;;(defn ler-palavra []
-  ;;(clojure.string/upper-case (read-line)))
+  (apply mapv vector matriz))
 
 (def matriz (ler-matriz "cacapalavra.txt"))
-(def matriz-transposta (transpor-matriz matriz))
 
 (defn buscar-horizontal [matriz palavra]
   (let [palavra (str/upper-case palavra)
@@ -38,7 +34,7 @@
            {:tipo :horizontal
             :linha indice
             :coluna (str/index-of linha-str palavra)})))
-     matriz))) ;; => aqui ele tá retornando um mapa de vetores com as posições da palavra encontrada na matriz horizontalmente
+     matriz))) 
 
 (defn buscar-vertical [matriz palavra]
   (let [resultados (-> matriz
@@ -46,7 +42,32 @@
                        (buscar-horizontal palavra))]
     (map #(assoc % :tipo :vertical :coluna (:linha %) :linha (:coluna %)) resultados)))
 
-(defn busca-diagonal [matriz palavra]) ;; => implementar ainda
+(defn buscar-diagonal [matriz palavra]
+  (let [palavra (str/upper-case palavra)
+        tam-palavra (count palavra)
+        linhas (count matriz)
+        colunas (if (pos? linhas) (count (first matriz)) 0)
+
+        ;; Função auxiliar definida localmente
+        verificar-diagonal (fn [linha-inicial coluna-inicial direcao]
+                             (let [passos (range tam-palavra)
+                                   caracteres (for [i passos]
+                                                (let [linha (+ linha-inicial (* direcao i))
+                                                      coluna (+ coluna-inicial i)]
+                                                  (when (and (< linha linhas) (< coluna colunas))
+                                                    (get-in matriz [linha coluna]))))]
+                               (when (= palavra (apply str (remove nil? caracteres)))
+                                 {:tipo :diagonal
+                                  :linha linha-inicial
+                                  :coluna coluna-inicial
+                                  :direcao (if (pos? direcao) "descendo" "subindo")})))]
+
+    ;; Verifica todas as diagonais possíveis
+    (->> (for [linha (range linhas)
+               coluna (range colunas)]
+           (or (verificar-diagonal linha coluna 1)  ; Diagonal descendente
+               (verificar-diagonal linha coluna -1))) ; Diagonal ascendente
+         (remove nil?))))
 
 
 (defn exibir-matriz [matriz]
@@ -59,7 +80,9 @@
     :horizontal (str "✅ Encontrada na linha " (:linha resultado)
                      ", começando na coluna " (:coluna resultado))
     :vertical (str "✅ Encontrada na coluna " (:coluna resultado)
-                   ", começando na linha " (:linha resultado))))
+                   ", começando na linha " (:linha resultado))
+    :diagonal (str "✅ Encontrada na diagonal (" (:direcao resultado)
+                   ") começando em [" (:linha resultado) "," (:coluna resultado) "]")))
 
 (defn exibir-resultados [resultados]
   (if (seq resultados)
@@ -72,23 +95,22 @@
 
 (defn -main []
   (println "🧩 Bem-vindo ao caça-palavras em Clojure!\n")
-  (print "Digite a palavra que deseja encontrar: ")
-  
+
   (let [caminho-arquivo "cacapalavra.txt"]
     (if (arquivo-existe? caminho-arquivo)
       (let [matriz (ler-matriz caminho-arquivo)]
         (exibir-matriz matriz)
-        
+
         (loop []
           (print "\n🔎 Digite a palavra para buscar (ou 'sair' para terminar): ")
           (flush)
           (let [palavra (str/trim (read-line))]
             (when-not (or (= "sair" (str/lower-case palavra)) (empty? palavra))
               (let [resultados (concat (buscar-horizontal matriz palavra)
-                                       (buscar-vertical matriz palavra))]
+                                       (buscar-vertical matriz palavra)
+                                       (buscar-diagonal matriz palavra))]
                 (exibir-resultados resultados)
                 (recur))))))
       (println "❌ Arquivo não encontrado:" caminho-arquivo)))
-  
-  (println "\nObrigado por jogar! Até a próxima! 👋")
-  )
+
+  (println "\nObrigado por jogar! Até a próxima! 👋"))
