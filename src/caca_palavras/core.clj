@@ -54,6 +54,18 @@
   (doseq [linha matriz]
     (println (str/join linha))))
 
+(defn formatar-resultado [resultado]
+  (case (:tipo resultado)
+    :horizontal (str "✅ Encontrada na linha " (:linha resultado)
+                     ", começando na coluna " (:coluna resultado))
+    :vertical (str "✅ Encontrada na coluna " (:coluna resultado)
+                   ", começando na linha " (:linha resultado))))
+
+(defn exibir-resultados [resultados]
+  (if (seq resultados)
+    (doseq [r resultados]
+      (println (formatar-resultado r)))
+    (println "❌ Palavra não encontrada.")))
 
 (defn -main []
   (println "🧩 Bem-vindo ao caça-palavras em Clojure!\n")
