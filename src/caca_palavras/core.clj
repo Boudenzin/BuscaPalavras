@@ -1,21 +1,17 @@
 (ns caca-palavras.core
   (:require [clojure.java.io :as io]
-            [clojure.string :as str])
-  (:import [java.text Normalizer]
-           [java.text Normalizer$Form]))
+            [clojure.string :as str]))
 
-(defn remover-acentos [texto]
-  (-> texto
-      (Normalizer/normalize Normalizer$Form/NFD)
-      (str/replace #"\p{M}" "")))
+
 
 ;; Definindo a função para ler o arquivo e criar a matriz
-(defn ler-matriz-horizontal [caminho]
-  (with-open [rdr (io/reader caminho :encoding "UTF-8")]
-    (doall
-     (map (fn [linha]
-            (vec (remove #(Character/isWhitespace %) (remover-acentos (str/upper-case linha))))) ;; Removendo espaços em branco e convertendo para maiúsculas
-          (line-seq rdr)))))
+(defn ler-matriz [caminho-arquivo]
+  (with-open [leitor (io/reader caminho-arquivo :encoding "UTF-8")]
+    (->> (line-seq leitor)
+         (map str/upper-case)
+         (map #(str/replace % " " ""))
+         (map vec)
+         (vec))))
 ;; => [[\C \A \Ç \A]
 ;;     [\P \A \L \A]
 ;;     [\V \R \A \S]]
@@ -29,7 +25,7 @@
 ;;(defn ler-palavra []
   ;;(clojure.string/upper-case (read-line)))
 
-(def matriz (ler-matriz-horizontal "cacapalavra.txt"))
+(def matriz (ler-matriz "cacapalavra.txt"))
 (def matriz-transposta (transpor-matriz matriz))
 
 (defn encontrar-posicoes [matriz palavra]
