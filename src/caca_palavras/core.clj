@@ -28,12 +28,23 @@
 (def matriz (ler-matriz "cacapalavra.txt"))
 (def matriz-transposta (transpor-matriz matriz))
 
-(defn encontrar-posicoes [matriz palavra]
-  (keep-indexed
-   (fn [i linha]
-     (when (clojure.string/includes? (apply str linha) palavra)
-       i))
-   matriz)) ;; => aqui ele tá retornando o índice da linha onde a palavra foi encontrada
+(defn buscar-horizontal [matriz palavra]
+  (let [palavra (str/upper-case palavra)
+        tamanho-palavra (count palavra)]
+    (keep-indexed
+     (fn [indice linha]
+       (let [linha-str (apply str linha)]
+         (when (str/includes? linha-str palavra)
+           {:tipo :horizontal
+            :linha indice
+            :coluna (str/index-of linha-str palavra)})))
+     matriz))) ;; => aqui ele tá retornando um mapa de vetores com as posições da palavra encontrada na matriz horizontalmente
+
+(defn buscar-vertical [matriz palavra]
+  (let [resultados (-> matriz
+                       transpor-matriz
+                       (buscar-horizontal palavra))]
+    (map #(assoc % :tipo :vertical :coluna (:linha %) :linha (:coluna %)) resultados)))
 
 (defn busca-diagonal [matriz palavra]) ;; => implementar ainda
 
@@ -44,8 +55,8 @@
   
   (flush)
    (let [palavra (clojure.string/upper-case (read-line))
-         linhas-encontradas (encontrar-posicoes matriz palavra)
-         colunas-encontradas (encontrar-posicoes matriz-transposta palavra)]
+         linhas-encontradas (buscar-horizontal matriz palavra)
+         colunas-encontradas (buscar-vertical matriz-transposta palavra)]
   
      (println "\n📄 Matriz carregada:")
      (doseq [linha matriz]
