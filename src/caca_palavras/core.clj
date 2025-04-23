@@ -22,11 +22,8 @@
 (defn transpor-matriz [matriz]
   (apply mapv vector matriz))
 
-(def matriz (ler-matriz "cacapalavra.txt"))
-
 (defn buscar-horizontal [matriz palavra]
-  (let [palavra (str/upper-case palavra)
-        tamanho-palavra (count palavra)]
+  (let [palavra (str/upper-case palavra)]
     (keep-indexed
      (fn [indice linha]
        (let [linha-str (apply str linha)]
@@ -34,7 +31,8 @@
            {:tipo :horizontal
             :linha indice
             :coluna (str/index-of linha-str palavra)})))
-     matriz))) 
+     matriz)))
+
 
 (defn buscar-vertical [matriz palavra]
   (let [resultados (-> matriz
@@ -73,7 +71,7 @@
 (defn exibir-matriz [matriz]
   (println "\n🔍 Matriz Carregada:")
   (doseq [linha matriz]
-    (println (str/join linha))))
+    (println (str/join " " linha))))
 
 (defn formatar-resultado [resultado]
   (case (:tipo resultado)
