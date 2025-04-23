@@ -67,6 +67,9 @@
       (println (formatar-resultado r)))
     (println "❌ Palavra não encontrada.")))
 
+(defn arquivo-existe? [caminho-arquivo]
+  (.exists (io/file caminho-arquivo)))
+
 (defn -main []
   (println "🧩 Bem-vindo ao caça-palavras em Clojure!\n")
   (print "Digite a palavra que deseja encontrar: ")
