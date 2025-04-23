@@ -47,7 +47,7 @@
         colunas (if (pos? linhas) (count (first matriz)) 0)
 
         ;; Função auxiliar definida localmente
-        verificar-diagonal (fn [linha-inicial coluna-inicial direcao]
+        verificar-diagonal (fn [linha-inicial coluna-inicial direcao] 
                              (let [passos (range tam-palavra)
                                    caracteres (for [i passos]
                                                 (let [linha (+ linha-inicial (* direcao i))
