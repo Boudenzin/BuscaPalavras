@@ -48,6 +48,13 @@
 
 (defn busca-diagonal [matriz palavra]) ;; => implementar ainda
 
+
+(defn exibir-matriz [matriz]
+  (println "\n🔍 Matriz Carregada:")
+  (doseq [linha matriz]
+    (println (str/join linha))))
+
+
 (defn -main []
   (println "🧩 Bem-vindo ao caça-palavras em Clojure!\n")
   (print "Digite a palavra que deseja encontrar: ")
