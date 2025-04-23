@@ -73,32 +73,22 @@
 (defn -main []
   (println "🧩 Bem-vindo ao caça-palavras em Clojure!\n")
   (print "Digite a palavra que deseja encontrar: ")
-
   
-  (flush)
-   (let [palavra (clojure.string/upper-case (read-line))
-         linhas-encontradas (buscar-horizontal matriz palavra)
-         colunas-encontradas (buscar-vertical matriz-transposta palavra)]
+  (let [caminho-arquivo "cacapalavra.txt"]
+    (if (arquivo-existe? caminho-arquivo)
+      (let [matriz (ler-matriz caminho-arquivo)]
+        (exibir-matriz matriz)
+        
+        (loop []
+          (print "\n🔎 Digite a palavra para buscar (ou 'sair' para terminar): ")
+          (flush)
+          (let [palavra (str/trim (read-line))]
+            (when-not (or (= "sair" (str/lower-case palavra)) (empty? palavra))
+              (let [resultados (concat (buscar-horizontal matriz palavra)
+                                       (buscar-vertical matriz palavra))]
+                (exibir-resultados resultados)
+                (recur))))))
+      (println "❌ Arquivo não encontrado:" caminho-arquivo)))
   
-     (println "\n📄 Matriz carregada:")
-     (doseq [linha matriz]
-       (println linha)
-       )
-  
-     ;; Resultado da busca horizontal (linha)
-     (if (seq linhas-encontradas)
-       (doseq [linha linhas-encontradas]
-         (println (str "✅ Palavra encontrada na linha " linha))
-         )
-       (println "❌ Palavra não encontrada nas linhas.")
-       )
-  
-     ;; Resultado da busca vertical (coluna)
-     (if (seq colunas-encontradas)
-       (doseq [coluna colunas-encontradas]
-         (println (str "✅ Palavra encontrada na coluna " coluna))
-         )
-       (println "❌ Palavra não encontrada nas colunas.")
-       )
-     )
+  (println "\nObrigado por jogar! Até a próxima! 👋")
   )
