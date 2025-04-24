@@ -1,6 +1,6 @@
 # 🔍 BuscaPalavras
 
-Um sistema de **caça-palavras** desenvolvido em **Clojure**, capaz de identificar palavras escondidas em uma matriz de letras carregada a partir de um arquivo `.txt`. A busca pode ser feita de forma **horizontal**, **vertical** e futuramente **diagonal**, tanto para frente quanto para trás.
+Um sistema de **caça-palavras** desenvolvido em **Clojure**, capaz de identificar palavras escondidas em uma matriz de letras carregada a partir de um arquivo `.txt`. A busca é feita nas direções **horizontal**, **vertical** e **diagonal** (↘ ↗), tanto para frente quanto para trás.
 
 ---
 
@@ -10,6 +10,7 @@ Um sistema de **caça-palavras** desenvolvido em **Clojure**, capaz de identific
 - Suporte a direções:
   - Horizontal (→ ←)
   - Vertical (↓ ↑)
+  - Diagonal (↘ ↗)
 - Interface via linha de comando
 - Leitura de matriz a partir de arquivo `.txt`
 
@@ -36,7 +37,112 @@ cd BuscaPalavras
 clj -M:run
 ```
 
-> O programa será executado no terminal. Você poderá digitar a palavra que deseja buscar e o sistema mostrará se ela foi encontrada, indicando a posição.
+> O programa será executado no terminal. Você poderá digitar a palavra que deseja buscar e o sistema mostrará se ela foi encontrada, indicando a posição e direção.
+
+---
+
+## 📂 Estrutura do Projeto
+
+```
+BuscaPalavras/
+├── cacapalavra.txt            # Matriz do caça-palavras (entrada)
+Claro! Aqui está o `README.md` atualizado para refletir que a **busca diagonal (↘ ↗)** já está implementada:Claro! Aqui está o `README.md` atualizado para refletir que a **busca diagonal (↘ ↗)** já está implementada:
+
+---
+
+# 🔍 BuscaPalavras
+
+Um sistema de **caça-palavras** desenvolvido em **Clojure**, capaz de identificar palavras escondidas em uma matriz de letras carregada a partir de um arquivo `.txt`. A busca é feita nas direções **horizontal**, **vertical** e **diagonal** (↘ ↗), tanto para frente quanto para trás.
+
+---
+
+## ✨ Funcionalidades
+
+- Busca de palavras ocultas em uma matriz personalizada
+- Suporte a direções:
+  - Horizontal (→ ←)
+  - Vertical (↓ ↑)
+  - Diagonal (↘ ↗)
+- Interface via linha de comando
+- Leitura de matriz a partir de arquivo `.txt`
+
+---
+
+## 🚀 Como executar
+
+### ✅ Pré-requisitos
+
+- [Clojure CLI](https://clojure.org/guides/getting_started)
+- Git
+- Editor de texto compatível com UTF-8 (VS Code, Neovim, etc.)
+
+### 📦 Clonando o projeto
+
+```bash
+git clone https://github.com/Boudenzin/BuscaPalavras.git
+cd BuscaPalavras
+```
+
+### ▶️ Executando com Clojure CLI
+
+```bash
+clj -M:run
+```
+
+> O programa será executado no terminal. Você poderá digitar a palavra que deseja buscar e o sistema mostrará se ela foi encontrada, indicando a posição e direção.
+
+---
+
+## 📂 Estrutura do Projeto
+
+```
+BuscaPalavras/
+├── cacapalavra.txt            # Matriz do caça-palavras (entrada)
+├── deps.edn                   # Configurações do projeto com Clojure CLI
+Claro! Aqui está o `README.md` atualizado para refletir que a **busca diagonal (↘ ↗)** já está implementada:Claro! Aqui está o `README.md` atualizado para refletir que a **busca diagonal (↘ ↗)** já está implementada:
+
+---
+
+# 🔍 BuscaPalavras
+
+Um sistema de **caça-palavras** desenvolvido em **Clojure**, capaz de identificar palavras escondidas em uma matriz de letras carregada a partir de um arquivo `.txt`. A busca é feita nas direções **horizontal**, **vertical** e **diagonal** (↘ ↗), tanto para frente quanto para trás.
+
+---
+
+## ✨ Funcionalidades
+
+- Busca de palavras ocultas em uma matriz personalizada
+- Suporte a direções:
+  - Horizontal (→ ←)
+  - Vertical (↓ ↑)
+  - Diagonal (↘ ↗)
+- Interface via linha de comando
+- Leitura de matriz a partir de arquivo `.txt`
+
+---
+
+## 🚀 Como executar
+
+### ✅ Pré-requisitos
+
+- [Clojure CLI](https://clojure.org/guides/getting_started)
+- Git
+- Editor de texto compatível com UTF-8 (VS Code, Neovim, etc.)
+
+### 📦 Clonando o projeto
+
+```bash
+git clone https://github.com/Boudenzin/BuscaPalavras.git
+cd BuscaPalavras
+```
+
+### ▶️ Executando com Clojure CLI
+
+```bash
+clj -M:run
+```
+
+> O programa será executado no terminal. Você poderá digitar a palavra que deseja buscar e o sistema mostrará se ela foi encontrada, indicando a posição e direção.
 
 ---
 
@@ -59,9 +165,10 @@ BuscaPalavras/
 - [x] Entrada da matriz via `.txt`
 - [x] Busca horizontal
 - [x] Busca vertical
-- [ ] Busca diagonal
+- [x] Busca diagonal (↘ ↗)
+- [ ] Busca diagonal invertida (↙ ↖)
 - [ ] Destaque visual da palavra encontrada na matriz
-- [ ] Mostrar posições da palavra (início e fim)
+- [x] Mostrar posições da palavra (início e fim)
 - [ ] Interface gráfica via ClojureScript
 - [ ] Testes automatizados com `clojure.test`
 
