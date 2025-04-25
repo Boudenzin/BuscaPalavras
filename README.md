@@ -39,6 +39,27 @@ clj -M:run
 
 > O programa será executado no terminal. Você poderá digitar a palavra que deseja buscar e o sistema mostrará se ela foi encontrada, indicando a posição e direção.
 
+
+**Nota para usuários Windows** <img src="https://img.icons8.com/color/48/000000/windows-10.png" alt="Windows Logo" width="20"/>
+
+
+Se estiver utilizando **Windows**, pode haver problemas com a exibição de caracteres (como acentuação ou setas). Para garantir que tudo funcione corretamente no terminal, siga estas instruções:
+
+1. **Use o Windows Terminal** (ou outro terminal compatível com UTF-8).
+2. No terminal, execute:
+
+```bash
+chcp 65001
+```
+
+> Esse comando muda o encoding do terminal para **UTF-8**.
+
+3. Em seguida, rode o programa com:
+
+```bash
+clj -M:run
+```
+
 ---
 
 ## 📂 Estrutura do Projeto
